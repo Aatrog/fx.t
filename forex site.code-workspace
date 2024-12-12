@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../NEW WEB DEV"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "forex site"
+	}
+}

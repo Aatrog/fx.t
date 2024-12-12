@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Currency Exchange Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .currency-info {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .currency-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2980b9;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .currency-change {
+            font-size: 20px;
+            margin-top: 10px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .positive {
+            color: #27ae60;
+        }
+
+        .negative {
+            color: #e74c3c;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .chart-container {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        canvas {
+            max-width: 100%;
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">Live Currency Exchange Dashboard</div>
+
+        <!-- Currency Info Section -->
+        <div class="currency-info">
+            Currency: <span id="currency-symbol">USD to EUR</span>
+        </div>
+
+        <div class="currency-value" id="currency-value">$0.00</div>
+        <div class="currency-change" id="currency-change"></div>
+
+        <!-- Chart Section -->
+        <div class="chart-container">
+            <canvas id="currencyChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Include Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Include Axios for fetching data -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const currencySymbol = 'USD-EUR';  // Currency pair (e.g., USD to EUR)
+        const apiKey = 'YOUR_API_KEY';  // Replace with your API key from CurrencyLayer or another API provider
+        const currencyValueElement = document.getElementById('currency-value');
+        const currencyChangeElement = document.getElementById('currency-change');
+        const currencySymbolElement = document.getElementById('currency-symbol');
+        const ctx = document.getElementById('currencyChart').getContext('2d');
+
+        let chart;
+
+        // Fetch currency exchange data from API
+        async function fetchCurrencyData(symbol) {
+            try {
+                const response = await axios.get('https://api.exchangerate-api.com/v4/latest/USD');
+                const data = response.data;
+                
+                const eurRate = data.rates['EUR'];  // Get EUR to USD exchange rate
+                const ngnRate = data.rates['NGN'];  // Get NGN to USD exchange rate
+                const change = eurRate - 1;  // Change from previous rate (for demonstration)
+                const changePercent = ((change / 1) * 100).toFixed(2);  // Calculate percentage change
+
+                // Update currency value
+                currencyValueElement.textContent = `€${eurRate.toFixed(2)}`;
+
+                // Show price change
+                if (change >= 0) {
+                    currencyChangeElement.textContent = `+${change.toFixed(2)} (${changePercent}%)`;
+                    currencyChangeElement.classList.add('positive');
+                    currencyChangeElement.classList.remove('negative');
+                } else {
+                    currencyChangeElement.textContent = `${change.toFixed(2)} (${changePercent}%)`;
+                    currencyChangeElement.classList.add('negative');
+                    currencyChangeElement.classList.remove('positive');
+                }
+
+                // Update the chart
+                updateChart(data.rates, ['USD', 'EUR', 'NGN']);  // Example chart with USD, EUR, and NGN rates
+
+            } catch (error) {
+                console.error('Error fetching currency data', error);
+            }
+        }
+
+        // Update the chart with new data
+        function updateChart(rates, currencies) {
+            if (chart) {
+                chart.destroy();  // Destroy the previous chart before creating a new one
+            }
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: currencies,
+                    datasets: [{
+                        label: 'Currency Exchange Rates',
+                        data: currencies.map(currency => rates[currency]),
+                        borderColor: '#2980b9',
+                        borderWidth: 2,
+                        fill: false,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 5
+                            }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            ticks: {
+                                callback: function(value) { return `€${value.toFixed(2)}`; }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Fetch initial currency data
+        fetchCurrencyData(currencySymbol);
+
+        // Update currency data every 5 minutes
+        setInterval(() => fetchCurrencyData(currencySymbol), 5 * 60 * 1000); // 5 minutes
+    </script>
+
+</body>
+</html>

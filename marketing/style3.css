@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+  }
+  
+  .container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  header {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+  }
+  
+  header h1 {
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+  }
+  
+  nav ul li {
+    margin: 0 20px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .hero {
+    background-image: url('https://via.placeholder.com/1500x800?text=Hero+Image');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+  }
+  
+  .hero h2 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+  }
+  
+  .cta-button {
+    background-color: #fcbf49;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  
+  .cta-button:hover {
+    background-color: #e59b34;
+  }
+  
+  .services {
+    padding: 40px 0;
+    background-color: #f4f4f4;
+  }
+  
+  .services h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .service-cards {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .service-card {
+    width: 30%;
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .service-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .service-card h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .service-card p {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .testimonials {
+    background-color: #fff;
+    padding: 40px 0;
+  }
+  
+  .testimonials h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .carousel-item {
+    display: none;
+    text-align: center;
+  }
+  
+  .carousel-item.active {
+    display: block;
+  }
+  
+  .carousel-button {
+    background-color: #fcbf49;
+    border: none;
+    color: black;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .carousel-button:hover {
+    background-color: #e59b34;
+  }
+  
+  footer {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .service-cards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .service-card {
+      width: 80%;
+      margin-bottom: 20px;
+    }
+  
+    .hero h2 {
+      font-size: 2rem;
+    }
+  
+    .hero p {
+      font-size: 1rem;
+    }
+  }
+  

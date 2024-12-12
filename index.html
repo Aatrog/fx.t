@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forex Trading Platform</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="script.js">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <nav>
+      <div class="logo">
+        <img src="images/logo.png" alt="Forex Logo">
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="./trade/index6.html">Trade</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#login" class="login-btn">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <section id="home">
+    <div class="hero">
+      <h1>Trade Forex With Confidence</h1>
+      <p>Access global markets, leverage advanced tools, and make smart decisions.</p>
+      <a href="./fore/index2.html" class="cta-btn">Start Trading</a>
+    </div>
+  </section>
+
+  <!-- Login/Sign-up Section -->
+  <section id="login">
+    <div class="form-container">
+      <h2 id="form-title">Sign In</h2>
+      <form id="auth-form">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <button type="submit" class="btn">Sign In</button>
+        <p class="auth-text" id="toggle-auth">
+          Don't have an account? <a href="#" onclick="toggleForm()">Sign up</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
